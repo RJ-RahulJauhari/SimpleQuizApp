@@ -189,6 +189,16 @@ const deleteTeamByName = async (req, res) => {
     }
 };
 
+const deleteAllTeams = async (req, res) => {
+    try {
+        const deletedTeams = await TeamModel.deleteMany({});
+        res.status(200).json({ message: "All teams deleted successfully", deletedCount: deletedTeams.deletedCount });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
 
 export { 
     checkTeamExistence, 
@@ -202,4 +212,5 @@ export {
     feedAnswersFromArray,
     getTeamByName,
     deleteTeamByName,
+    deleteAllTeams
 };

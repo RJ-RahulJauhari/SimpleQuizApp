@@ -1,6 +1,6 @@
 // Router.js
 import { Router } from "express";
-import {getTeamByName, createTeam, checkTeamExistence, feedAnswersFromArray, submitAnswers,getTeamsSortedByTimestamp,matchAnswers,feedAnswer,updateAnswerById } from "../controller/controller.js";
+import {deleteTeamByName,deleteAllTeams,getTeamByName, createTeam, checkTeamExistence, feedAnswersFromArray, submitAnswers,getTeamsSortedByTimestamp,matchAnswers,feedAnswer,updateAnswerById } from "../controller/controller.js";
 
 const router = Router();
 
@@ -13,5 +13,7 @@ router.post('/feedAnswer', feedAnswer);
 router.put('/updateAnswerById', updateAnswerById); 
 router.post('/feedAnswersFromArray', feedAnswersFromArray);
 router.get('/teams/:teamName', getTeamByName);
+router.delete('/teams/:teamName', deleteTeamByName);
+router.delete('/teams', deleteAllTeams);
 
 export default router;
