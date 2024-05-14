@@ -87,7 +87,7 @@ const feedAnswer = async (req, res) => {
 }
 
 const feedAnswersFromArray = async (req, res) => {
-    const answersArray = req.body; // Assuming req.body is an array of JSON objects containing answers
+    const answersArray = req.body; 
     try {
         // Iterate through each object in the array
         for (const answerObj of answersArray) {
@@ -102,6 +102,17 @@ const feedAnswersFromArray = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 }
+
+const deleteAllAnswers = async (req, res) => {
+    try {
+        // Delete all documents in the AnswerModel collection
+        await AnswerKeyModel.deleteMany({});
+        res.status(200).json({ message: "All answers deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting all answers:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
 
 const updateAnswerById = async (req, res) => {
     const { id, answer } = req.body;
@@ -212,5 +223,6 @@ export {
     feedAnswersFromArray,
     getTeamByName,
     deleteTeamByName,
-    deleteAllTeams
+    deleteAllTeams,
+    deleteAllAnswers
 };

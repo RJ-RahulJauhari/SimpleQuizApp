@@ -93,11 +93,16 @@ const QuizPage = () => {
                     Warning: You will be disqualified if you move to another tab! {`${moveCount}`}
                 </div>
             )}
+            {cur != pictureCount
+            ?
             <div className='h-5/6 w-5/6 flex flex-col gap-2 justify-center items-center'>
                 <h1 className='p-3 text-xl rounded-full text-white font-bold'>Question {cur}</h1>
                 <img className='w-full rounded-lg max-h-[400px]' src={`${gitImageUrl}/${cur}.jpg`} alt="Not Found" />
                 <input value={inp} onChange={(e) => setInp(e.target.value.toLowerCase().trim())} type="text" className='w-1/3 p-3 rounded-lg w-full sm:w-4/5 lg:w-1/3' placeholder='Type your answer' />
             </div>
+            :
+            ""
+            }
             <div className='flex flex-row flex-wrap justify-center w-1/2 sm:w-4/5 lg:w-1/3 gap-2'>
                 <button onClick={moveToPrev} className={`px-20 py-3 rounded-full text-[#fff] bg-gradient-to-br shadow-lg from-[#5EFCE8] to-[#736EFE] hover:-translate-x-2 transition active:scale-[0.97] active:opacity-90 font-semibold text-xl ${cur === 1 ? 'invisible' : ''}`}><FaArrowLeft /></button>
                 {cur === pictureCount ? (

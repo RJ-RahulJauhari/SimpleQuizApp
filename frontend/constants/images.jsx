@@ -3,7 +3,7 @@ const images = [
     {2:'../../public/images/2.jpg'}
 ]
 
-const pictureCount = 23;
+const pictureCount = 24;
 const pin_val = 291348;
 const gitImageUrl = "https://raw.githubusercontent.com/RJ-RahulJauhari/SimpleQuizApp/main/frontend/public/images/"
 const localImageUrl = "../../public/images/"
