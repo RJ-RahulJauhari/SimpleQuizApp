@@ -7,7 +7,7 @@ import router from './router/router.js';
 dotenv.config();
 const server = express();
 
-server.use(cors({ origin: ['http://localhost:5173','http://localhost:5174'], credentials: true }));
+server.use(cors({ origin: ['http://localhost:5173','http://localhost:5174','https://simplequizapp-1.onrender.com','https://simplequizapp-admin.onrender.com'], credentials: true }));
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use('/quiz', router);

@@ -175,6 +175,20 @@ const getTeamByName = async (req, res) => {
     }
 };
 
+const deleteTeamByName = async (req, res) => {
+    const { teamName } = req.params;
+    try {
+        const deletedTeam = await TeamModel.findOneAndDelete({ name: teamName });
+        if (!deletedTeam) {
+            return res.status(404).json({ message: "Team not found" });
+        }
+        res.status(200).json({ message: "Team deleted successfully", deletedTeam });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
 
 export { 
     checkTeamExistence, 
@@ -186,5 +200,6 @@ export {
     matchAnswers,
     getTeamsSortedByTimestamp,
     feedAnswersFromArray,
-    getTeamByName
+    getTeamByName,
+    deleteTeamByName,
 };
