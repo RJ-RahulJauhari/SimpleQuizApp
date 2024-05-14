@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useNavigate, useParams } from 'react-router-dom';
 import { TeamContext } from '../Context/TeamContext';
@@ -14,6 +14,33 @@ const QuizPage = () => {
     const { answers, setAnswers, teamName } = useContext(TeamContext);
     const [cur, setCur] = useState(questionId);
     const [inp, setInp] = useState('');
+    const [showWarning, setShowWarning] = useState(false); // State to control the visibility of warning message
+    const [moveCount, setMoveCount] = useState(0); // State to track the count of occurrences when the user switches to another tab
+
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                setShowWarning(true); // Show warning message when the user switches to another tab
+                setMoveCount(prevCount => prevCount + 1); // Increment move count when the user switches to another tab
+                setTimeout(() => {
+                    setShowWarning(false); // Hide warning message after 10 seconds
+                }, 10000);
+            }
+        };
+
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+
+        return () => {
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (moveCount > 5) {
+            // Submit answers directly if the user moves out of the window more than 5 times
+            submitResult();
+        }
+    }, [moveCount]);
 
     const addValueToAnswer = (id, value) => {
         const temp = [...answers];
@@ -33,7 +60,6 @@ const QuizPage = () => {
         navigator(`/quiz/${newCur}`);
         const alreadyExists = answers.find(o => o.id === newCur);
         setInp(alreadyExists ? alreadyExists.value : '');
-        console.log(answers)
     };
 
     const moveToNext = () => {
@@ -43,8 +69,6 @@ const QuizPage = () => {
         navigator(`/quiz/${newCur}`);
         const alreadyExists = answers.find(o => o.id === newCur);
         setInp(alreadyExists ? alreadyExists.value : '');
-        console.log(answers)
-
     };
 
     const submitResult = async () => {
@@ -64,6 +88,11 @@ const QuizPage = () => {
 
     return (
         <div className='page bg-color-gradient py-5 w-full'>
+            {showWarning && (
+                <div className="bg-red-500 px-3 rounded-md text-white text-center py-2">
+                    Warning: You will be disqualified if you move to another tab! {`${moveCount}`}
+                </div>
+            )}
             <div className='h-5/6 w-5/6 flex flex-col gap-2 justify-center items-center'>
                 <h1 className='p-3 text-xl rounded-full text-white font-bold'>Question {cur}</h1>
                 <img className='w-full rounded-lg max-h-[400px]' src={`${gitImageUrl}/${cur}.jpg`} alt="Not Found" />
