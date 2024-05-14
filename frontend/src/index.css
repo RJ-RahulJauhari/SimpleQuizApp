@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+    .bg-color-gradient {
+        @apply bg-gradient-to-b from-1 to-2
+    }
+    .page {
+        @apply flex flex-col justify-center items-center gap-7 min-h-screen max-h-full
+    }
+    .helper {
+        @apply border border-red-600 border-[5px]
+    }
+    .button-style {
+        @apply px-20 py-3 rounded-full text-[#fff] bg-gradient-to-br shadow-lg from-[#5EFCE8] to-[#736EFE] transition font-semibold text-xl
+    }
+    .button-style:hover {
+        @apply translate-y-2
+    }
+    .button-style:active {
+        @apply opacity-90 scale-[0.97]
+    }
+}
+
+@layer base {}
