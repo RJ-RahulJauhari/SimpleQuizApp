@@ -3,7 +3,7 @@ const images = [
     {2:'../../public/images/2.jpg'}
 ]
 
-const pictureCount = 16;
-const pin_val = 123456;
+const pictureCount = 23;
+const pin_val = 291348;
 
 export {images,pictureCount,pin_val};
