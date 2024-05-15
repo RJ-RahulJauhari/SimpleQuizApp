@@ -28,15 +28,29 @@ const QuizPage = () => {
             }
         };
 
+        const handleTouchMove = (e) => {
+            e.preventDefault();
+        };
+
+        const handleKeyDown = (e) => {
+            if ((e.ctrlKey && e.key === 'r') || (e.metaKey && e.key === 'r') || e.key === 'F5') {
+                e.preventDefault();
+            }
+        };
+
         document.addEventListener("visibilitychange", handleVisibilityChange);
+        document.addEventListener("touchmove", handleTouchMove, { passive: false });
+        document.addEventListener("keydown", handleKeyDown);
 
         return () => {
             document.removeEventListener("visibilitychange", handleVisibilityChange);
+            document.removeEventListener("touchmove", handleTouchMove);
+            document.removeEventListener("keydown", handleKeyDown);
         };
     }, []);
 
     useEffect(() => {
-        if (moveCount > 5) {
+        if (moveCount > 3) {
             submitResult();
         }
     }, [moveCount]);
